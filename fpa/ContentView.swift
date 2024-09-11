@@ -186,7 +186,7 @@ struct ContentView: View {
                 .font(.system(size: 40, weight: .bold))
                 .padding()
             
-            Text("Average Clicks/Second: \(String(format: "%.2f", Double(score) / timeRemaining))")
+            Text("Average Clicks per Second: \(String(format: "%.2f", Double(score) / timeRemaining))")
                 .font(.title2)
                 .padding()
             
@@ -197,7 +197,7 @@ struct ContentView: View {
             Chart(history.reversed()) { play in
                 BarMark(
                     x: .value("Play", play.index),
-                    y: .value("Clicks/Second", play.clicksPerSecond)
+                    y: .value("Clicks per Second", play.clicksPerSecond)
                 )
                 .foregroundStyle(.blue)
             }
@@ -206,7 +206,7 @@ struct ContentView: View {
             
             Spacer()
             
-            Button(action: startGame) {
+            Button(action: resetGame) {
                 Text("Play Again")
                     .font(.title)
                     .padding()
@@ -225,7 +225,7 @@ struct ContentView: View {
                     .cornerRadius(10)
             }
             
-            ConfettiCannon(counter: $confettiCounter, repetitions: 2, repetitionInterval: 0.5)
+            ConfettiCannon(counter: $confettiCounter, repetitions: Int(rand(1...4)), repetitionInterval: 0.5)
         }
         .onAppear {
             confettiCounter += 1 // for triggering confetti
@@ -340,11 +340,14 @@ struct ContentView: View {
 
     private func incrementScore() {
         score += 1
+        if score == 20 {
+            score += 2
+        }
     }
 
-    // private func resetGame() {
-    //     gameState = .start
-    // }
+     private func resetGame() {
+         gameState = .start
+     }
 }
 
 struct ContentView_Previews: PreviewProvider {
