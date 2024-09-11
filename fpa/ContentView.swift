@@ -225,7 +225,7 @@ struct ContentView: View {
                     .cornerRadius(10)
             }
             
-            ConfettiCannon(counter: $confettiCounter, repetitions: Int(rand(1...4)), repetitionInterval: 0.5)
+            ConfettiCannon(counter: $confettiCounter, repetitions: Int.random(in: 1...4), repetitionInterval: 0.5)
         }
         .onAppear {
             confettiCounter += 1 // for triggering confetti
